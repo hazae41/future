@@ -3,10 +3,10 @@
 </div>
 
 ```bash
-npm i @hazae41/binary
+npm i @hazae41/future
 ```
 
-[**Node Package 📦**](https://www.npmjs.com/package/@hazae41/binary)
+[**Node Package 📦**](https://www.npmjs.com/package/@hazae41/future)
 
 ## Features
 
@@ -14,101 +14,19 @@ npm i @hazae41/binary
 - 100% TypeScript and ESM
 - No external dependencies
 - Unit-tested
-- Zero-copy reading and writing
 
 ## Usage
 
-### Cursor
-
-#### Writing
-
 ```typescript
-const cursor = Cursor.allocUnsafe(1024)
+const future = new Future<void, unknown>()
 
-cursor.writeUint8(123)
-cursor.writeUint16(1234)
+const okTimeout = setTimeout(() => future.ok(), 1000)
+const errTimeout = setTimeout(() => future.err(), 2000)
 
-console.log(cursor.offset) // 3
-```
-
-#### Reading
-
-```typescript
-const bytes = new Uint8Array(/*...*/)
-const cursor = new Cursor(bytes)
-
-const uint8 = cursor.readUint8()
-const uint16 = cursor.readUint16()
-
-console.log(cursor.offset) // 3
-```
-
-### Binary data types
-
-#### Writable
-
-```typescript
-class MyObject implements Writable {
-
-  constructor(
-    readonly x: number,
-    readonly y: number
-  ) {}
-
-  size() {
-    return 1 + 2
-  }
-
-  write(cursor: Cursor) {
-    cursor.writeUint8(this.x)
-    cursor.writeUint16(this.y)
-  }
-
+try {
+  await future.promise
+} finally {
+  clearTimeout(okTimeout)
+  clearTimeout(errTimeout)
 }
-```
-
-```typescript
-const myobject = new MyObject(1, 515)
-const bytes = Writable.toBytes(myobject) // Uint8Array([1, 2, 3])
-```
-
-#### Readable
-
-```typescript
-class MyObject {
-
-  constructor(
-    readonly x: number,
-    readonly y: number
-  ) {}
-
-  static read(cursor: Cursor) {
-    const x = cursor.readUint8()
-    const y = cursor.readUint16()
-
-    return new this(x, y)
-  }
-
-}
-```
-
-```typescript
-const bytes = new Uint8Array([1, 2, 3])
-const myobject = Readable.fromBytes(MyObject, bytes) // MyObject(1, 515)
-```
-
-#### Opaque
-
-This is a binary data type that just holds bytes, it can be used when a binary data type is required
-
-```typescript
-const bytes = new Uint8Array([1, 2, 3])
-const opaque = Readable.fromBytes(SafeOpaque, bytes) // Opaque(Uint8Array([1, 2, 3]))
-const myobject = opaque.into(MyObject) // MyObject(1, 515)
-```
-
-```typescript
-const myobject = new MyObject(1, 515)
-const opaque = Opaque.from(myobject) // Opaque(Uint8Array([1, 2, 3]))
-const bytes = Writable.toBytes(opaque) // Uint8Array([1, 2, 3])
 ```
