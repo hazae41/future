@@ -1,0 +1,54 @@
+{
+  "type": "module",
+  "name": "@hazae41/future",
+  "version": "1.0.0",
+  "description": "Like a Promise but you can manually fulfill or reject it",
+  "homepage": "https://github.com/hazae41/future",
+  "repository": "github:hazae41/future",
+  "author": "hazae41",
+  "license": "MIT",
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.mjs",
+  "types": "./dist/types/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "./dist/esm",
+    "./dist/cjs",
+    "./dist/types"
+  ],
+  "scripts": {
+    "build": "rimraf dist && rollup -c",
+    "test": "node ./dist/test/index.test.mjs",
+    "prepare": "npm run build"
+  },
+  "devDependencies": {
+    "@hazae41/phobos": "^1.0.10",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "@types/node": "^18.13.0",
+    "rimraf": "^4.1.2",
+    "rollup": "^3.15.0",
+    "rollup-plugin-dts": "^5.2.0",
+    "rollup-plugin-node-externals": "^5.1.2",
+    "typescript": "^4.9.5"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/cjs/index.cjs"
+    }
+  },
+  "keywords": [
+    "future",
+    "promise",
+    "manual",
+    "fulfill",
+    "reject",
+    "async",
+    "signal",
+    "typescript",
+    "esmodules",
+    "tested",
+    "unit-tested"
+  ]
+}
