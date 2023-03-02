@@ -20,6 +20,8 @@ npm i @hazae41/future
 ## Usage
 
 ```typescript
+import { Future } from "@hazae41/future"
+
 const future = new Future<void, unknown>()
 
 const okTimeout = setTimeout(() => future.ok(), 1000)
