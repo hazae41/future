@@ -1,7 +1,7 @@
-export class Future<T = unknown, E = unknown> {
+export class Future<T> {
 
-  readonly ok: (x: T) => void
-  readonly err: (e: E) => void
+  readonly resolve: (value: T) => void
+  readonly reject: (error: unknown) => void
 
   readonly promise: Promise<T>
 
@@ -9,15 +9,15 @@ export class Future<T = unknown, E = unknown> {
    * Like a Promise but you can manually fulfill or reject it
    */
   constructor() {
-    let ok: (x: T) => void
-    let err: (e: E) => void
+    let resolve: (value: T) => void
+    let reject: (error: unknown) => void
 
-    this.promise = new Promise((pok, perr) => {
-      ok = pok
-      err = perr
+    this.promise = new Promise((subresolve, subreject) => {
+      resolve = subresolve
+      reject = subreject
     })
 
-    this.ok = ok!
-    this.err = err!
+    this.resolve = resolve!
+    this.reject = reject!
   }
 }

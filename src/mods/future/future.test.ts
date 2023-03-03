@@ -2,10 +2,10 @@ import { assert, test } from "@hazae41/phobos"
 import { Future } from "./future.js"
 
 test("future", async ({ test }) => {
-  const future = new Future<void, unknown>()
+  const future = new Future<void>()
 
   const start = Date.now()
-  setTimeout(() => future.ok(), 1000)
+  setTimeout(() => future.resolve(), 1000)
 
   await future.promise
 

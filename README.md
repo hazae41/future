@@ -2,7 +2,7 @@
 <img src="https://user-images.githubusercontent.com/4405263/222497326-825b2ebb-910b-41ca-8759-785c4876faf0.png" />
 </div>
 
-Like a Promise but you can manually fulfill or reject it
+Like a Promise but you can manually resolve or reject it
 
 ```bash
 npm i @hazae41/future
