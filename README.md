@@ -22,15 +22,15 @@ npm i @hazae41/future
 ```typescript
 import { Future } from "@hazae41/future"
 
-const future = new Future<void, unknown>()
+const future = new Future<void>()
 
-const okTimeout = setTimeout(() => future.ok(), 1000)
-const errTimeout = setTimeout(() => future.err(), 2000)
+const t1 = setTimeout(() => future.resolve(), 1000)
+const t2 = setTimeout(() => future.reject(), 2000)
 
 try {
   await future.promise
 } finally {
-  clearTimeout(okTimeout)
-  clearTimeout(errTimeout)
+  clearTimeout(t1)
+  clearTimeout(t2)
 }
 ```
