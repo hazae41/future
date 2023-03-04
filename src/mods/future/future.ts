@@ -6,7 +6,7 @@ export class Future<T> {
   readonly promise: Promise<T>
 
   /**
-   * Like a Promise but you can manually fulfill or reject it
+   * Just like a Promise but you can manually resolve or reject it
    */
   constructor() {
     let resolve: (value: T) => void
