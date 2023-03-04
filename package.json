@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "@hazae41/future",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Like a Promise but you can manually resolve or reject it",
   "homepage": "https://github.com/hazae41/future",
   "repository": "github:hazae41/future",
