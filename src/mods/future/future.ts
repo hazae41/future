@@ -23,12 +23,18 @@ export class Future<T> {
     }
   }
 
-  static resolve<T>(value: T): Future<T> {
-    return new Future<T>(Promise.resolve<T>(value))
+  static resolve(): Future<void>
+
+  static resolve<T>(value: T): Future<Awaited<T>>
+
+  static resolve<T>(value: T | PromiseLike<T>): Future<Awaited<T>>
+
+  static resolve(value?: any) {
+    return new Future(Promise.resolve(value))
   }
 
-  static reject<T>(error: unknown): Future<T> {
-    return new Future<T>(Promise.reject<T>(error))
+  static reject<T = never>(reason?: any): Future<T> {
+    return new Future<T>(Promise.reject<T>(reason))
   }
 
   get resolve() {
